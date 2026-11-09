@@ -116,6 +116,3 @@ setup.
 The full dataset for later checkpoints is Food.com Recipes and User Interactions
 (~230K recipes), which is too large to commit here:
 <https://www.kaggle.com/datasets/shuyangli94/food-com-recipes-and-user-interactions>
-
-> Bodhisattwa Prasad Majumder, Shuyang Li, Jianmo Ni, Julian McAuley. "Generating
-> Personalized Recipes from Historical User Preferences." EMNLP 2019.
