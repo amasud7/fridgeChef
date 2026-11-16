@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fridge Chef</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Fridge Chef</h1>
+<p class="tagline">List what is in your fridge. Recipes are ranked by how much of each one
+you can already make, so the ones needing a trip to the store sink.</p>
+
+<form action="{{ url_for('home') }}" method="get">
+  <input type="hidden" name="submitted" value="1">
+  <label for="ingredients">What's in your fridge?</label>
+  <input type="text" id="ingredients" name="ingredients" value="{{ raw }}"
+         placeholder="chicken breast, rice, garlic, soy sauce, eggs" autocomplete="off">
+  <div class="controls">
+    <button type="submit">Find recipes</button>
+    <label for="max_missing">max missing</label>
+    <select id="max_missing" name="max_missing">
+      {% for n in limits %}
+      <option value="{{ n }}"{% if limit == n|string %} selected{% endif %}>{{ n }}</option>
+      {% endfor %}
+      <option value="any"{% if limit == 'any' %} selected{% endif %}>no limit</option>
+    </select>
+    <label class="check">
+      <input type="checkbox" name="staples"{% if assume_staples %} checked{% endif %}>
+      I have salt, oil and butter
+    </label>
+  </div>
+</form>
+
+{% if searched %}
+
+<p class="reading">reading: {{ query|join(', ') }}</p>
+{% if unrecognized %}
+<p class="warn">no recipe uses: {{ unrecognized|join(', ') }}</p>
+{% endif %}
+
+{% if results %}
+<p class="count">{{ total }} recipes searched, {{ results|length }} shown</p>
+<ol class="results">
+  {% for r in results %}
+  <li>
+    <p class="head">
+      <span class="name">{{ loop.index }}. {{ r.name }}</span>
+      <span class="minutes">{{ r.minutes }} min</span>
+    </p>
+    <p class="scores">score {{ '%.2f'|format(r.final_score) }} &middot;
+      covers {{ (r.coverage * 100)|round|int }}%</p>
+    <p class="have"><span class="tag">you have</span>{{ r.used_ingredients|join(', ') }}</p>
+    {% if r.missing_ingredients %}
+    <p class="need"><span class="tag">you need</span>{{ r.missing_ingredients|join(', ') }}</p>
+    {% else %}
+    <p class="need"><span class="tag">you need</span>nothing, you can cook this now</p>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ol>
+{% else %}
+<p class="nothing">Nothing matched within the missing ingredient limit. Raise
+<em>max missing</em>, or add another ingredient to the list.</p>
+{% endif %}
+
+{% else %}
+
+<p class="nothing">Nothing searched yet. Try one of these:</p>
+<ul class="examples">
+  <li><a href="{{ url_for('home', submitted=1, max_missing=3, staples='on',
+        ingredients='chicken breast, rice, garlic, soy sauce, eggs') }}">chicken breast, rice,
+        garlic, soy sauce, eggs</a></li>
+  <li><a href="{{ url_for('home', submitted=1, max_missing=3, staples='on',
+        ingredients='eggs, milk, cheddar cheese') }}">eggs, milk, cheddar cheese</a></li>
+  <li><a href="{{ url_for('home', submitted=1, max_missing=3, staples='on',
+        ingredients='ground beef, onion, canned tomatoes, pasta') }}">ground beef, onion,
+        canned tomatoes, pasta</a></li>
+</ul>
+
+{% endif %}
+
+</body>
+</html>

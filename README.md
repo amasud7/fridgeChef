@@ -19,14 +19,23 @@ Implemented:
 - a command line demo (`fridgechef/cli.py`)
 - 23 tests over a hand-built corpus and the sample dataset (`tests/`)
 
+## Checkpoint 3 status
+
+The web interface is in, built on the same ranking code the CLI uses:
+
+- a one-route Flask app over the existing ranker (`fridgechef/web.py`)
+- a server-rendered page with no JavaScript (`fridgechef/templates/index.html`,
+  `fridgechef/static/style.css`)
+- the 2-page UI writeup and its screenshots (`report/`)
+
 Not done yet: ingredient substitutions, a rating-based tie-breaker, "did you mean"
-suggestions for ingredients outside the vocabulary, indexing the full Food.com dataset,
-and the web interface for Checkpoint 3.
+suggestions for ingredients outside the vocabulary, and indexing the full Food.com
+dataset.
 
 ## Setup
 
-Python 3.10 or newer. The ranking code uses only the standard library; pytest is the
-one dependency.
+Python 3.10 or newer. The ranking code uses only the standard library. Flask is needed
+for the web interface and pytest for the tests; neither is imported by the ranker.
 
 ```bash
 git clone <repo-url> && cd fridgeChef
@@ -34,8 +43,8 @@ python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\ac
 pip install -r requirements.txt
 ```
 
-There is no install step — `pytest.ini` puts the repo root on the path, so both of the
-commands below are run from the repository root.
+There is no install step — `pytest.ini` puts the repo root on the path, so every
+command below is run from the repository root.
 
 ## Running the tests
 
@@ -46,7 +55,24 @@ pytest -v
 The tests use `tests/conftest.py`, an eight-recipe corpus small enough to verify the
 rankings by hand, plus the committed sample dataset. No download is required.
 
-## Running the demo
+## Running the web interface
+
+```bash
+python -m fridgechef.web
+```
+
+Then open <http://localhost:5050>. Type a fridge list, or click one of the examples on
+the start page. Searches live entirely in the URL, so they can be bookmarked and the back
+button steps through previous fridges.
+
+`report/checkpoint3-ui.pdf` is the Checkpoint 3 writeup. Rebuild it after changing
+`report/ui.md` with:
+
+```bash
+pandoc report/ui.md -o report/checkpoint3-ui.pdf --resource-path=report
+```
+
+## Running the CLI demo
 
 ```bash
 python -m fridgechef.cli --ingredients "chicken breast, rice, garlic, soy sauce, eggs" --top 5

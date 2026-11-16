@@ -1,0 +1,141 @@
+body {
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #fff;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0 0 0.3rem;
+}
+
+.tagline {
+  color: #555;
+  margin: 0 0 1.4rem;
+}
+
+form {
+  border-top: 1px solid #ccc;
+  padding-top: 1.2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+#ingredients {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid #999;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.controls label {
+  display: inline;
+  margin: 0;
+  color: #444;
+}
+
+button {
+  font: inherit;
+  color: #fff;
+  background: #7a2e2e;
+  border: 1px solid #7a2e2e;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+}
+
+select {
+  font: inherit;
+  padding: 0.2rem;
+  border: 1px solid #999;
+}
+
+.reading {
+  margin: 1.5rem 0 0;
+}
+
+.warn {
+  color: #7a2e2e;
+  margin: 0.2rem 0 0;
+}
+
+.count {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.2rem 0 0;
+}
+
+ol.results {
+  list-style: none;
+  margin: 0.9rem 0 0;
+  padding: 0;
+}
+
+ol.results li {
+  border-top: 1px solid #ddd;
+  padding: 0.8rem 0;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.minutes,
+.scores {
+  color: #666;
+}
+
+.scores {
+  font-size: 0.9rem;
+  margin: 0.1rem 0 0.45rem;
+}
+
+.have,
+.need {
+  margin: 0.15rem 0;
+}
+
+.tag {
+  display: inline-block;
+  width: 5rem;
+  color: #666;
+}
+
+.need .tag {
+  color: #7a2e2e;
+}
+
+.nothing {
+  margin: 1.6rem 0 0.4rem;
+}
+
+ul.examples {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+a {
+  color: #7a2e2e;
+}
